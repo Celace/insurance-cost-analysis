@@ -26,10 +26,16 @@ Achieved **R² = 0.85** (full-data polynomial pipeline) and **R² = 0.78** on un
 ```python
 url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DA0101EN-Coursera/medical_insurance_dataset.csv"
 df = pd.read_csv(url, header=None)
-2. Add Column Headers
+```
+
+### 2. Add Column Headers
+```python
 pythonheaders = ["age", "gender", "bmi", "no_of_children", "smoker", "region", "charges"]
 df.columns = headers
-3. Handle Missing Values
+```
+
+### 3. Handle Missing Values
+```python
 pythondf.replace("?", np.nan, inplace=True)
 
 # smoker (categorical) → most frequent value
@@ -40,23 +46,33 @@ mean_age = df["age"].astype(float).mean()
 df["age"].fillna(mean_age, inplace=True)
 
 df[["age", "smoker"]] = df[["age", "smoker"]].astype(int)
-4. Exploratory Data Analysis (EDA)
+```
+### 4. Exploratory Data Analysis (EDA)
+```python
 pythondf.info()
 df.describe()
 sns.boxplot(x="smoker", y="charges", data=df)
 print(df.corr())
 Key Insight: smoker has the highest correlation with charges (~0.79).
-5. Baseline Model – Smoker Only
+```
+### 5. Baseline Model – Smoker Only
+```python
 pythonX = df[["smoker"]]
 y = df["charges"]
 lm = LinearRegression()
 lm.fit(X, y)
 print(lm.score(X, y))  # → 0.622
-6. Multi-Variable Linear Regression
+```
+
+### 6. Multi-Variable Linear Regression
+```python
 pythonZ = df.drop("charges", axis=1)
 lm.fit(Z, y)
 print(lm.score(Z, y))  # → 0.750
-7. Polynomial + Scaling Pipeline
+```
+
+### 7. Polynomial + Scaling Pipeline
+```python
 pythonfrom sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.metrics import r2_score
@@ -70,7 +86,10 @@ pipe = Pipeline([
 pipe.fit(Z, y)
 y_pred = pipe.predict(Z)
 print(r2_score(y, y_pred))  # → 0.845
-8. Train-Test Split & Ridge Regression
+```
+
+### 8. Train-Test Split & Ridge Regression
+```python
 pythonfrom sklearn.model_selection import train_test_split
 from sklearn.linear_model import Ridge
 
@@ -86,16 +105,18 @@ ridge = Ridge(alpha=0.1)
 ridge.fit(X_train_pr, y_train)
 y_hat = ridge.predict(X_test_pr)
 print(r2_score(y_test, y_hat))  # → 0.784
+```
 
-Files in This Repository
+# Files in This Repository
 
 insurance-cost-analysis.ipynb – Full Jupyter notebook with code, outputs, and visualizations
 insurance.csv – Cleaned dataset (optional – can be re-downloaded from the URL)
 README.md – This document
 
 
-How to Run
-bash# 1. Clone the repo
+# How to Run
+bash 
+# 1. Clone the repo
 git clone https://github.com/<your-username>/insurance-cost-analysis.git
 cd insurance-cost-analysis
 
