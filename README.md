@@ -107,21 +107,20 @@ y_hat = ridge.predict(X_test_pr)
 print(r2_score(y_test, y_hat))  # → 0.784
 ```
 
-# Files in This Repository
+## Files in This Repository
 
 insurance-cost-analysis.ipynb – Full Jupyter notebook with code, outputs, and visualizations
 insurance.csv – Cleaned dataset (optional – can be re-downloaded from the URL)
 README.md – This document
 
 
-# How to Run
-bash 
-# 1. Clone the repo
-git clone https://github.com/<your-username>/insurance-cost-analysis.git
+## How to Run
+### 1. Clone the repo
+git clone https://github.com/Celace/insurance-cost-analysis.git
 cd insurance-cost-analysis
 
-# 2. Install dependencies
+### 2. Install dependencies
 pip install pandas numpy scikit-learn seaborn matplotlib
 
-# 3. Launch notebook
+### 3. Launch notebook
 jupyter notebook "insurance-cost-analysis.ipynb"
